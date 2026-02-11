@@ -61,8 +61,8 @@ terraform destroy
 - Увімкнене версіювання.
 - Створює **DynamoDB таблицю** для блокування.
 
-![Results](./assets/s3_01.png) ![Results](./assets/s3_02.png)
-![Results](./assets/s3_03.png) ![Results](./assets/dynamoDB.png)
+![Results](./lesson-5/assets/s3_01.png) ![Results](./lesson-5/assets/s3_02.png)
+![Results](./lesson-5/assets/s3_03.png) ![Results](./lesson-5/assets/dynamoDB.png)
 
 ---
 
@@ -73,7 +73,7 @@ terraform destroy
 - Налаштовує **Internet Gateway** і **NAT Gateway**.
 - Маршрутизація через Route Tables.
 
-![Results](./assets/vpc.png)
+![Results](./lesson-5/assets/vpc.png)
 
 ---
 
@@ -83,4 +83,4 @@ terraform destroy
 - Включає **scan on push** для перевірки безпеки образів.
 - Налаштовує політику доступу.
 
-![Results](./assets/ecr.png)
+![Results](./lesson-5/assets/ecr.png)
