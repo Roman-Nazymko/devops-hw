@@ -1,68 +1,61 @@
-# Домашнє завдання до теми «Вивчення Helm»
+# Домашнє завдання до теми «Вивчення Agro CD + CD»
 
-## Опис
+## Terraform
 
-У цьому проєкті реалізовано інфраструктуру для запуску Django-застосунку в
-Kubernetes.  
-Використовуються **Terraform** для створення ресурсів в AWS та **Helm** для
-деплойменту застосунку.
+Інструкції для застосування Terraform:
 
 ```bash
-# Ініціалізація Terraform (завантаження провайдерів і модулів)
+# Ініціалізація Terraform
 terraform init
 
-# Перегляд планованих змін інфраструктури
+# Перевірка плану змін
 terraform plan
 
-# Застосування конфігурації
+# Застосування змін (підтвердження "yes")
 terraform apply
 
-# Видалення інфраструктури
-terraform destroy
-
-```
-
-## Виконані кроки
-
-### 1. Створення Kubernetes-кластера (EKS)
-
-- За допомогою Terraform у вже існуючій VPC створено кластер Kubernetes (EKS).
-- Налаштовано доступ до кластера через `kubectl`.
-
-### 2. Elastic Container Registry (ECR)
-
-- Terraform створює ECR-репозиторій.
-- Django Docker-образ завантажено в ECR за допомогою AWS CLI:
-
-```bash
-aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <account_id>.dkr.ecr.<region>.amazonaws.com
-docker build -t django-app .
-docker tag django-app:latest <account_id>.dkr.ecr.<region>.amazonaws.com/django-app:latest
-docker push <account_id>.dkr.ecr.<region>.amazonaws.com/django-app:latest
-```
-
-### 3. Helm-чарт
-
-У каталозі `charts/django-app/` реалізовано:
-
-- **Deployment** — запускає контейнер із образом із ECR, підключає `ConfigMap`
-  через `envFrom`.
-- **Service** — типу `LoadBalancer` для зовнішнього доступу.
-- **HPA** — масштабує від 2 до 6 подів при CPU > 70%.
-- **ConfigMap** — з усіма змінними середовища (перенесеними з попереднього
-  завдання).
-- **values.yaml** — містить параметри образу, сервісу, autoscaler та
-  конфігурації.
-
----
-
-### 4. Деплоймент застосунку
-
-```bash
-helm install django-app ./charts/django-app
-```
 
 ## Результат
 
-![Results](./lesson-7/assets/terminal.png) ![Results](./lesson-7/assets/helm.png)
-![Results](./lesson-7/assets/ecr.png) ![Results](./lesson-7/assets/eks.png)
+![Results](./assets/terraform.png) ![Results](./assets/docker.png)
+![Results](./assets/ecr.png) ![Results](./assets/eks.png)
+![Results](./assets/terminal.png)
+```
+
+## Jenkins
+
+Як перевірити Jenkins job:
+
+1. Відкрий Jenkins UI у браузері: http://<JENKINS_SERVER>:8080
+2. Вибери потрібну job (наприклад, build-django-app)
+3. Натисни "Build Now"
+4. Переглянь "Console Output" для результатів виконання
+
+## Argo CD
+
+Як побачити результат у Argo CD:
+
+1. Проброс порту для доступу до UI Argo CD: kubectl port-forward
+   svc/argo-cd-argocd-server -n argocd 8080:443
+
+2. Відкрий у браузері: https://localhost:8080
+
+3. Логін:
+
+   - Користувач: admin
+   - Пароль: kubectl -n argocd get secret argocd-initial-admin-secret -o
+     jsonpath="{.data.password}" | base64 -d
+
+4. Перевірка статусу додатків: kubectl get applications.argoproj.io -n argocd
+
+5. Перегляд подів Argo CD: kubectl get pods -n argocd
+
+6. Перегляд сервісів Argo CD: kubectl get svc -n argocd
+
+7. Для синхронізації додатку у UI Argo CD натисни "Sync"
+
+## Результати
+
+![Results](./Project/assets/terminal.png) ![Results](./Project/assets/ecr.png)
+![Results](./Project/assets/jenkins.png) ![Results](./Project/assets/argo_cd_1.png)
+![Results](./Project/assets/argo_cd_2.png)
