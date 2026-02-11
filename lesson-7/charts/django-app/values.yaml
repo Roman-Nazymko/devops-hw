@@ -1,6 +1,6 @@
 # Образ Django з ECR
 image:
-  repository: 778011348199.dkr.ecr.eu-central-1.amazonaws.com/lesson-5-ecr
+  repository: 778011348199.dkr.ecr.us-west-2.amazonaws.com/lesson-5-ecr
   tag: latest
   pullPolicy: Always
 
