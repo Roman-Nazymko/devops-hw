@@ -45,11 +45,24 @@ output "ecr_repository_url" {
 ############################
 
 output "eks_cluster_name" {
-  description = "EKS cluster name"
-  value       = module.eks.cluster_name
+  value = module.eks.eks_cluster_name
 }
 
 output "eks_cluster_endpoint" {
-  description = "EKS API server endpoint"
-  value       = module.eks.cluster_endpoint
+  value = module.eks.eks_cluster_endpoint
+}
+
+
+
+############################
+# JENKINS
+############################
+
+
+output "jenkins_release" {
+  value = module.jenkins.jenkins_release_name
+}
+
+output "jenkins_namespace" {
+  value = module.jenkins.jenkins_namespace
 }
