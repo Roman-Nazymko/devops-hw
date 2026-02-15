@@ -52,12 +52,9 @@ output "eks_cluster_endpoint" {
   value = module.eks.eks_cluster_endpoint
 }
 
-
-
 ############################
 # JENKINS
 ############################
-
 
 output "jenkins_release" {
   value = module.jenkins.jenkins_release_name
@@ -65,4 +62,39 @@ output "jenkins_release" {
 
 output "jenkins_namespace" {
   value = module.jenkins.jenkins_namespace
+}
+
+############################
+# RDS / AURORA DATABASE
+############################
+
+output "db_endpoint" {
+  description = "Database endpoint"
+  value       = module.rds.rds_endpoint
+}
+
+output "db_reader_endpoint" {
+  description = "Reader endpoint (Aurora only)"
+  value       = module.rds.rds_reader_endpoint
+}
+
+output "db_port" {
+  description = "Database port"
+  value       = module.rds.rds_port
+}
+
+output "db_name" {
+  description = "Database name"
+  value       = module.rds.database_name
+}
+
+output "db_username" {
+  description = "Database master username"
+  value       = module.rds.username
+  sensitive   = true
+}
+
+output "db_connection_string" {
+  description = "Connection string template"
+  value       = module.rds.connection_string
 }

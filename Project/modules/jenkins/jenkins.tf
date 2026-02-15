@@ -1,4 +1,6 @@
 resource "kubernetes_storage_class_v1" "ebs_sc" {
+  provider = kubernetes
+
   metadata {
     name = "ebs-sc"
     annotations = {
@@ -17,6 +19,8 @@ resource "kubernetes_storage_class_v1" "ebs_sc" {
 }
 
 resource "kubernetes_service_account_v1" "jenkins_sa" {
+  provider = kubernetes
+
   metadata {
     name      = "jenkins-sa"
     namespace = "jenkins"
@@ -73,6 +77,8 @@ resource "aws_iam_role_policy" "jenkins_ecr_policy" {
 }
 
 resource "helm_release" "jenkins" {
+  provider = helm
+
   name             = "jenkins"
   namespace        = "jenkins"
   repository       = "https://charts.jenkins.io"
