@@ -136,6 +136,7 @@ module "rds" {
   subnet_public_ids            = module.vpc.public_subnet_ids
   publicly_accessible        = true
   vpc_id                     = module.vpc.vpc_id
+  vpc_cidr_block             = "10.0.0.0/16"
   multi_az                   = true
   backup_retention_period    = 7
   parameters = {

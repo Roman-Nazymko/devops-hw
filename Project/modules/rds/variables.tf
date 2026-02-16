@@ -139,3 +139,8 @@ variable "db_port" {
   type        = number
   default     = 5432
 }
+
+variable "vpc_cidr_block" {
+  description = "VPC CIDR block for security group ingress"
+  type        = string
+}
